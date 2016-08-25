@@ -11,17 +11,23 @@
 <body>
   <div id="name_container"></div>
   <script type="text/babel">
-    var Name = React.createClass({
+    var Show = React.createClass({
       render: function () {
         return(
           <div>
-          <h1>Will Van Wart</h1>
-          <p>sample text here</p>
+            <h1>{this.props.title}</h1>
+            <p>{this.props.genre}</p>
           </div>
         );
       }
     });
-    ReactDOM.render(<Name />, document.getElementById('name_container'));
+    ReactDOM.render(
+      <div>
+      <Show title="The Artctic Monkeys" genre="rock n roll"/>
+        <Show title="The Black Keys" genre="Garage Rock"/>
+        <Show title="Muse" genre="Space Rock"/>
+      </div>
+         , document.getElementById('name_container'));
   </script>
 </body>
 </html>
