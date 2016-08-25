@@ -14,35 +14,33 @@
 
   <script type="text/babel">
 
-    var Show = React.createClass({
+    var CheckBox = React.createClass({
 
-      edit: function () {
-        alert("edited")
+      getInitialState: function() {
+        return {checked: true}
       },
 
-      remove: function () {
-        alert("removed")
+      handleChecked: function () {
+        this.setState({checked: !this.state.checked})
       },
 
       render: function () {
-        return(
-          <div className="showContainer">
-            <div className="showtText">{this.props.children}</div>
-            <button onclick={this.edit} className="button-primary">Edit</button>
-            <button onclick={this.remove} className="button-danger">Remove</button>
+        var msg;
+        if(this.state.checked){
+          msg = 'checked'
+        }else{
+          msg = 'unchecked'
+        }
+        return (
+          <div>
+            <input type ="checkbox" onChange={this.handleChecked} defaultChecked = {this.state.checked} />
+            <h3>{msg}</h3>
           </div>
         );
       }
     });
 
-    ReactDOM.render(
-              <div className="roster">
-                <Show>Show 1 </Show>
-                <Show>Show 2</Show>
-                <Show>Show 3</Show>
-              </div>
-
-              , document.getElementById('container'));
+    ReactDOM.render(<CheckBox/>, document.getElementById('container'));
 
   </script>
 </body>
