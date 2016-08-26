@@ -55,13 +55,31 @@
       }
     });
 
-    ReactDOM.render(
-      <div className="board">
-        <Comment>Young the Giant</Comment>
-        <Comment>Artcic Monkeys</Comment>
-        <Comment>Black Keys</Comment>
-      </div>
-      , document.getElementById('container'));
+    var Board = React.createClass({
+      getInitialState: function () {
+        return {
+          comments: [
+            "Young the Giant",
+            "Arctic Monkeys",
+            "Blck keys"
+          ]
+        }
+      },
+
+        render: function () {
+          return(
+            <div className="board">
+              {
+                this.state.comments.map(function (item, i) {
+                  return <Comment key={i}>{item}</Comment>
+                })
+              }
+            </div>
+          )
+        }
+    });
+
+    ReactDOM.render(<Board />, document.getElementById('container'));
 
   </script>
 </body>
