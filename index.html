@@ -18,34 +18,40 @@
       getInitialState: function () {
         return {editing: false}
       },
+
       edit: function () {
         this.setState({editing: true});
       },
+
       remove: function () {
         console.log("removing");
+        this.props.removeCommentText(this.props.index);
       },
+
       save: function () {
-        var val = this.refs.newText.value
-        console.log("new text = " + val)
+        this.props.updateCommentText(this.refs.newText.value, this.props.index);
         this.setState({editing: false});
       },
+
       renderNormal: function () {
         return (
           <div className="commentContainer">
             <div className="commentText">{this.props.children}</div>
-            <button onClick= {this.edit} className="button-primary">edit</button>
+            <button onClick={this.edit} className="button-primary">edit</button>
             <button onClick={this.remove} className="button-danger">remove</button>
           </div>
         );
       },
+
       renderForm: function () {
         return (
           <div className="commentContainer">
-            <textarea refs="newText" defaultValue={this.props.children}></textarea><br></br>
+            <textarea ref="newText" defaultValue={this.props.children}></textarea><br></br>
             <button onClick={this.save} className="button-success">save</button>
           </div>
         );
       },
+
       render: function () {
         if(this.state.editing){
           return this.renderForm();
@@ -66,29 +72,33 @@
         }
       },
 
-      removecomment: function (i) {
+      removeComment: function (i) {
         var arr = this.state.comments;
         arr.splice(i, 1);
         this.setState({comments: arr})
       },
 
-      updatecomment: function (newText, i) {
+      updateComment: function (newText, i) {
         console.log("will is awesome");
         var arr = this.state.comments;
         arr[i] = newText;
         this.setState({comments: arr})
       },
 
-      eachcomment: function (item, i) {
-        return (<Comment key={i} index={i}>{item}</Comment>);
+      eachComment: function (text, i) {
+        return (
+              <Comment key={i} index={i} updateCommentText = {this.updateComment} removeCommentText = {this.removeComment} >
+                {text}
+              </Comment>
+                );
       },
 
         render: function () {
-          return(
+          return (
             <div className="board">
-              {this.state.comments.map(this.eachcomment)}
+              {this.state.comments.map(this.eachComment)}
             </div>
-          )
+          );
         }
     });
 
