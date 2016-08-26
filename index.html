@@ -66,14 +66,27 @@
         }
       },
 
+      removecomment: function (i) {
+        var arr = this.state.comments;
+        arr.splice(i, 1);
+        this.setState({comments: arr})
+      },
+
+      updatecomment: function (newText, i) {
+        console.log("will is awesome");
+        var arr = this.state.comments;
+        arr[i] = newText;
+        this.setState({comments: arr})
+      },
+
+      eachcomment: function (item, i) {
+        return (<Comment key={i} index={i}>{item}</Comment>);
+      },
+
         render: function () {
           return(
             <div className="board">
-              {
-                this.state.comments.map(function (item, i) {
-                  return <Comment key={i}>{item}</Comment>
-                })
-              }
+              {this.state.comments.map(this.eachcomment)}
             </div>
           )
         }
