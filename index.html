@@ -14,7 +14,7 @@
 
   <script type="text/babel">
 
-    var Show = React.createClass({
+    var Comment = React.createClass({
       getInitialState: function () {
         return {editing: false}
       },
@@ -25,12 +25,14 @@
         console.log("removing");
       },
       save: function () {
+        var val = this.refs.newText.value
+        console.log("new text = " + val)
         this.setState({editing: false});
       },
       renderNormal: function () {
         return (
-          <div className="showContainer">
-            <div className="showText">{this.props.children}</div>
+          <div className="commentContainer">
+            <div className="commentText">{this.props.children}</div>
             <button onClick= {this.edit} className="button-primary">edit</button>
             <button onClick={this.remove} className="button-danger">remove</button>
           </div>
@@ -38,8 +40,8 @@
       },
       renderForm: function () {
         return (
-          <div className="showContaimer">
-            <textarea defaultValue={this.props.children}></textarea>
+          <div className="commentContainer">
+            <textarea refs="newText" defaultValue={this.props.children}></textarea><br></br>
             <button onClick={this.save} className="button-success">save</button>
           </div>
         );
@@ -55,9 +57,9 @@
 
     ReactDOM.render(
       <div className="board">
-        <Show>Young the Giant</Show>
-        <Show>Artcic Monkeys</Show>
-        <Show>Black Keys</Show>
+        <Comment>Young the Giant</Comment>
+        <Comment>Artcic Monkeys</Comment>
+        <Comment>Black Keys</Comment>
       </div>
       , document.getElementById('container'));
 
